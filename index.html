@@ -1,0 +1,256 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            margin: 0px;
+            /* overflow: hidden; */
+            background-color: #111;
+            font-family: sans-serif;
+            font-size: 16px;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: #fff;
+        }
+
+        h2 {
+            margin: 1em 0 .3em 0;
+            font-size: 30px;
+            font-weight: 100;
+            /* text-transform: uppercase; */
+        }
+
+        h2::before {
+            content: '//';
+            background: linear-gradient(135deg, #2CD8D5, #8E37D7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 10px;
+        }
+
+        #bg_placeholder {
+            position: absolute;
+        }
+
+        #page {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: auto;
+            /* background: url('/assets/pattern-triangles.png') center bottom;
+            background-size: 500px;
+            background-repeat: repeat-x; */
+        }
+
+        #content {
+            z-index: 10;
+            position: relative;
+            /* position: absolute; */
+            top: 30%;
+            /* left: 50%; */
+            min-width: 600px;
+            width: 60%;
+            margin: 0 auto 80px auto;
+            padding-bottom: 80px;
+            /* margin-left: -50%; */
+        }
+
+        #logo {
+            margin: 0 auto 50px auto;
+            width: 360px;
+            height: 87px;
+            background-size: contain;
+            background-image: url('/assets/nftfx-logo.png');
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        #apps li {
+            list-style-type: none;
+            float: left;
+            width: 29.3%;
+            margin: 15px 2%;
+            /* height: 120px; */
+        }
+
+        #apps li a {
+            display: block;
+            width: 100%;
+            height: 120px;
+            text-align: left;
+            background: rgba(20, 0, 40, .5);
+            padding: 18px 24px;
+            text-decoration: none;
+            font-size: 21px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-top: 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0);
+            transition: transform .3s, box-shadow .3s;
+            color: #eee;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, .25);
+        }
+
+        #apps li a:hover {
+            /* color: #000; */
+            /* background: rgba(0,0,0,.5); */
+            background: linear-gradient(135deg, #2CD8D5, #8E37D7);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
+            /* margin-top: -5px; */
+            transform: translateY(-5px);
+            /* border: 1px solid #fff; */
+            /* border-width: 1px 10px 10px 1px; */
+            /* box-shadow: 10px 10px 0 #fff6; */
+        }
+
+        #apps li.row {
+            /* float: none; */
+            width: 100%;
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: normal;
+            text-transform: uppercase;
+            border: 1px solid #fff;
+            color: #fff;
+            opacity: .67;
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+    <script type="module">
+        //@ts-check
+        import { NFTFXViewer } from './assets/nftfx-viewer.js';
+        NFTFXViewer.register();
+
+        const [width, height] = [window.innerWidth, window.innerHeight];
+        const BG_MANIFEST = {
+            "attributes": [],
+            "properties": {
+                "nftfx": {
+                    "version": "0.2",
+                    "width": width,
+                    "height": height,
+                    "baseUrl": "/assets/background",
+                    "shaders": {
+                        "Main": "/assets/background/_triangles.glsl",
+                    },
+                    "textures": {},
+                    "uniforms": {}
+                }
+            }
+        };
+
+        const showBackground = ({ manifest, width, height }) => {
+            const ph = document.getElementById('bg_placeholder');
+            const html =
+                `<nftfx-viewer pixelRatio="0.5" autoplay="true" id="nft" width="${width}" height="${height}" style="margin:0 auto;">
+                    <${'script'} type="text/nftfx">${manifest}</${'script'}>
+                </nftfx-viewer>`;
+            ph.innerHTML = html;
+        }
+        showBackground({ manifest: JSON.stringify(BG_MANIFEST, null, '  '), width, height });
+    </script>
+
+    <div id="bg_placeholder"></div>
+
+    <div id="page">
+
+        <div id="content">
+            <p class="subtitle">
+                <span style="font-weight:100;">POWERED BY</span> <img src="/assets/solana-logo.svg" width="135"
+                    height="20" alt="SOLANA" style="vertical-align: text-bottom;margin-left: 20px;" />
+            </p>
+            <div id="logo"></div>
+            <p class="subtitle">
+                <img src="/assets/subtitle-2.png" width="360"
+                    alt="NFT Protocol for programmatic art" /><br /><br /><br />
+                <!-- <span style="font-weight:100;">POWERED BY</span> <img src="/assets/solana-logo.svg" width="150" style="margin-top:10px;vertical-align: text-bottom;margin: 0 20px;"/> -->
+            </p>
+            <ul id="apps">
+                <li class="row">
+                    <h2>Available now</h2>
+                </li>
+                <li><a href="https://skulleryheroes.com/" target="_blank">
+                        <span class="badge">Our NFTFX-collection</span><br />
+                        ☠️ Skullery Heroes
+                    </a></li>
+                <li><a href="https://nftfx.dev/assets/whitepaper.pdf">
+                        <span class="badge">PDF</span><br />
+                        NFTFX Protocol Whitepaper<br />
+                    </a></li>
+                <li><a href="https://viewer.nftfx.dev/">
+                        <span class="badge">Web-3 app</span><br />
+                        View your NFTFX-collectibles<br />
+                    </a></li>
+
+                <li class="row">
+                    <h2>Soon</h2>
+                </li>
+                <li><a href="https://builder.nftfx.dev/" target="_blank">
+                        <span class="badge">SOON</span><br />
+                        NFT Collection<br />Builder<br />
+                    </a></li>
+                <li><a href="https://marketplace.nftfx.dev/" target="_blank">
+                        <span class="badge">SOON</span><br />
+                        NFTFX<br />Marketplace<br />
+                    </a></li>
+                <li><a href="https://stacking.nftfx.dev/" target="_blank">
+                        <span class="badge">SOON</span><br />
+                        NFTFX<br />Stacking<br />
+                    </a></li>
+                <li><a href="https://fund.nftfx.dev/" target="_blank">
+                        <span class="badge">SOON</span><br />
+                        Digital Artists Fund<br />
+                    </a></li>
+
+                <li class="row">
+                    <h2>Links</h2>
+                </li>
+                <li><a href="https://discord.gg/Wpqju94x" target="_blank">
+                        <span class="badge">SKULLERY HEROES</span><br />
+                        Discord server &rarr;
+                    </a></li>
+                <li><a href="https://github.com/nftfx" target="_blank">
+                        <span class="badge">Open-source</span><br />
+                        GitHub &rarr;<br />
+                    </a></li>
+                <li><a href="https://docs.nftfx.dev/" target="_blank">
+                        <span class="badge">SOON</span><br />
+                        Documentation for developers &rarr;<br />
+                    </a></li>
+                <li class="row">
+                    <br /><br />
+                </li>
+            </ul>
+            <br />
+            <br />
+            <br />
+        </div>
+
+    </div>
+
+</body>
+
+</html>
