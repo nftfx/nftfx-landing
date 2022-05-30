@@ -26,6 +26,7 @@ h2 {
 h2::before {
     content: '//';
     background: linear-gradient(135deg, #2CD8D5, #8E37D7);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-right: 10px;
